@@ -1,0 +1,32 @@
+<% if (messages.success) { %>
+  <div class="flash flash-success"><%= messages.success %></div>
+<% } %>
+
+<h1>Welcome to Mind</h1>
+
+<div class="form-header">
+  <% if (Object.keys(errors).length === 0) { %>
+    <h4>Choose a name for your own mind instance.</h4>
+  <% } else { %>
+    <h2 class="errors-heading">Oops, please correct the following:</h2>
+    <ul class="errors-list">
+      <% Object.values(errors).forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+</div>
+
+<form method="post" action="/" novalidate>
+  <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
+    <label for="name">Name</label>
+    <input class="input" id="name" name="name" autofocus  placeholder="Type your instance name here..."><%= data.name %></input>
+    <% if (errors.name) { %>
+      <div class="error"><%= errors.name.msg %></div>
+    <% } %>
+  </div>
+
+  <div class="form-actions">
+    <button class="btn" type="submit">Create instance</button>
+  </div>
+</form>
