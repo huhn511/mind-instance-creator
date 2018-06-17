@@ -27,6 +27,7 @@ router.post('/', [
  } else {
    const data = matchedData(req)
    console.log('Sanitized:', data)
+   create_instsance(data.name)
    req.flash('success', 'Your instance will set up now!')
    res.render('instance', {
      data: {},
@@ -35,4 +36,20 @@ router.post('/', [
  }
 
 })
+
+create_instsance = function(instance_name) {
+  var util    = require('util'),
+    spawn   = require('child_process').spawn,
+    carrier = require('carrier'),
+    pl_proc = spawn('perl', ['magic.pl', instance_name]),
+    my_carrier;
+
+    my_carrier = carrier.carry(pl_proc.stdout);
+
+    my_carrier.on('line', function(line) {
+    // Do stuff...
+    console.log('instance_name: ' + line);
+})
+}
+
 module.exports = router
