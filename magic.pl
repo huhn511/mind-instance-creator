@@ -11,4 +11,4 @@ printf($instance_name . "\n");
 
 system("mkdir -p $pfad/$instance_name");
 system("cd $pfad/$instance_name");
-system("git clone https://github.com/huhn511/rails-docker-sample.git);
+system("git clone https://github.com/huhn511/rails-docker-sample.git");
