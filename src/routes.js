@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { check, validationResult } = require('express-validator/check')
 const { matchedData } = require('express-validator/filter')
+const changeCase = require('change-case')
 
 router.get('/', (req, res) => {
   res.render('index', {
@@ -27,10 +28,13 @@ router.post('/', [
  } else {
    const data = matchedData(req)
    console.log('Sanitized:', data)
-   create_instsance(data.name)
+   var instance_name = changeCase.snakeCase(data.name);
+   create_instsance(instance_name)
    req.flash('success', 'Your instance will set up now!')
    res.render('instance', {
-     data: {},
+     data: {
+       "instance_name": instance_name
+     },
      errors: {}
    })
  }
@@ -38,6 +42,8 @@ router.post('/', [
 })
 
 create_instsance = function(instance_name) {
+
+
   var util    = require('util'),
     spawn   = require('child_process').spawn,
     carrier = require('carrier'),
