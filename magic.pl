@@ -3,7 +3,10 @@
 use strict;
 use warnings;
 
-my $intance_name = $ARGV[0];
-chomp($intance_name);
+my $pfad = '/var/www/html';
+my $instance_name = $ARGV[0];
+chomp($instance_name);
 
-printf($intance_name . "\n");
+printf($instance_name . "\n");
+
+system("mkdir -p $pfad/$instance_name");
