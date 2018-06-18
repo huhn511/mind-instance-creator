@@ -1,12 +1,12 @@
 #!/usr/bin/perl
+#Abhängigkeiten des Scripts installieren
 #cpan install Git::Repository;
-
 
 use strict;
 use warnings;
 use Git::Repository;
 
-########################################
+#=== Variablen ===
 my $document_root = '/var/www/html';
 my $git_url = 'https://github.com/huhn511/rails-docker-sample.git';
 
@@ -16,13 +16,14 @@ chomp($instance_name);
 my $instance_dir = $document_root . '/' . $instance_name;
 
 printf($instance_name . "\n");
-########################################
 
-if(-d $instance_dir){
+#=== Hauptprogramm ===
+if(-d $instance_dir){ #Prüfung auf bereits vorhandene Ordner
   printf("Directory already exists! Choose another name!\n");
   return 0;
 }else{
   system("mkdir -p $document_root/$instance_name");
 }
-Git::Repository->run( clone => $git_url => $instance_dir );
-my $repo = Git::Repository->new( work_tree => $instance_dir );
+
+Git::Repository->run( clone => $git_url => $instance_dir ); #Repo clonen
+my $repo = Git::Repository->new( work_tree => $instance_dir ); #Repo über Variable $repo ansprechen können
